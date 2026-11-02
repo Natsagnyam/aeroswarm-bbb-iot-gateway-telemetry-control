@@ -172,21 +172,9 @@ CMakeFiles/iot_gateway_server.dir/src/server.cpp.o: \
  /usr/include/arm-linux-gnueabihf/bits/getopt_posix.h \
  /usr/include/arm-linux-gnueabihf/bits/getopt_core.h \
  /usr/include/arm-linux-gnueabihf/bits/unistd_ext.h \
- /usr/include/linux/close_range.h /usr/include/fcntl.h \
- /usr/include/arm-linux-gnueabihf/bits/fcntl.h \
- /usr/include/arm-linux-gnueabihf/bits/fcntl-linux.h \
- /usr/include/arm-linux-gnueabihf/bits/types/struct_iovec.h \
- /usr/include/arm-linux-gnueabihf/bits/cloexec.h \
- /usr/include/linux/falloc.h /usr/include/arm-linux-gnueabihf/bits/stat.h \
- /usr/include/arm-linux-gnueabihf/bits/struct_stat.h \
- /usr/include/arm-linux-gnueabihf/bits/struct_stat_time64_helper.h \
- /usr/include/arm-linux-gnueabihf/sys/mman.h \
- /usr/include/arm-linux-gnueabihf/bits/mman.h \
- /usr/include/arm-linux-gnueabihf/bits/mman-map-flags-generic.h \
- /usr/include/arm-linux-gnueabihf/bits/mman-linux.h \
- /usr/include/arm-linux-gnueabihf/bits/mman-shared.h \
- /usr/include/arm-linux-gnueabihf/bits/mman_ext.h \
+ /usr/include/linux/close_range.h \
  /usr/include/arm-linux-gnueabihf/sys/socket.h \
+ /usr/include/arm-linux-gnueabihf/bits/types/struct_iovec.h \
  /usr/include/arm-linux-gnueabihf/bits/socket.h \
  /usr/include/arm-linux-gnueabihf/bits/socket_type.h \
  /usr/include/arm-linux-gnueabihf/bits/sockaddr.h \

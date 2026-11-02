@@ -165,35 +165,12 @@ unit_tests/fast:
 	$(MAKE) $(MAKESILENT) -f tests/CMakeFiles/unit_tests.dir/build.make tests/CMakeFiles/unit_tests.dir/build
 .PHONY : unit_tests/fast
 
-src/main.o: src/main.cpp.o
-.PHONY : src/main.o
-
-# target to build an object file
-src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_node.dir/build.make CMakeFiles/gateway_node.dir/src/main.cpp.o
-.PHONY : src/main.cpp.o
-
-src/main.i: src/main.cpp.i
-.PHONY : src/main.i
-
-# target to preprocess a source file
-src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_node.dir/build.make CMakeFiles/gateway_node.dir/src/main.cpp.i
-.PHONY : src/main.cpp.i
-
-src/main.s: src/main.cpp.s
-.PHONY : src/main.s
-
-# target to generate assembly for a file
-src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_node.dir/build.make CMakeFiles/gateway_node.dir/src/main.cpp.s
-.PHONY : src/main.cpp.s
-
 src/server.o: src/server.cpp.o
 .PHONY : src/server.o
 
 # target to build an object file
 src/server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_node.dir/build.make CMakeFiles/gateway_node.dir/src/server.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/iot_gateway_server.dir/build.make CMakeFiles/iot_gateway_server.dir/src/server.cpp.o
 .PHONY : src/server.cpp.o
 
@@ -202,6 +179,7 @@ src/server.i: src/server.cpp.i
 
 # target to preprocess a source file
 src/server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_node.dir/build.make CMakeFiles/gateway_node.dir/src/server.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/iot_gateway_server.dir/build.make CMakeFiles/iot_gateway_server.dir/src/server.cpp.i
 .PHONY : src/server.cpp.i
 
@@ -210,6 +188,7 @@ src/server.s: src/server.cpp.s
 
 # target to generate assembly for a file
 src/server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gateway_node.dir/build.make CMakeFiles/gateway_node.dir/src/server.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/iot_gateway_server.dir/build.make CMakeFiles/iot_gateway_server.dir/src/server.cpp.s
 .PHONY : src/server.cpp.s
 
@@ -225,9 +204,6 @@ help:
 	@echo "... gateway_node"
 	@echo "... iot_gateway_server"
 	@echo "... unit_tests"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"

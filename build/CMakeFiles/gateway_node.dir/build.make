@@ -72,28 +72,28 @@ include CMakeFiles/gateway_node.dir/flags.make
 CMakeFiles/gateway_node.dir/codegen:
 .PHONY : CMakeFiles/gateway_node.dir/codegen
 
-CMakeFiles/gateway_node.dir/src/main.cpp.o: CMakeFiles/gateway_node.dir/flags.make
-CMakeFiles/gateway_node.dir/src/main.cpp.o: /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/main.cpp
-CMakeFiles/gateway_node.dir/src/main.cpp.o: CMakeFiles/gateway_node.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gateway_node.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gateway_node.dir/src/main.cpp.o -MF CMakeFiles/gateway_node.dir/src/main.cpp.o.d -o CMakeFiles/gateway_node.dir/src/main.cpp.o -c /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/main.cpp
+CMakeFiles/gateway_node.dir/src/server.cpp.o: CMakeFiles/gateway_node.dir/flags.make
+CMakeFiles/gateway_node.dir/src/server.cpp.o: /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/server.cpp
+CMakeFiles/gateway_node.dir/src/server.cpp.o: CMakeFiles/gateway_node.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gateway_node.dir/src/server.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/gateway_node.dir/src/server.cpp.o -MF CMakeFiles/gateway_node.dir/src/server.cpp.o.d -o CMakeFiles/gateway_node.dir/src/server.cpp.o -c /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/server.cpp
 
-CMakeFiles/gateway_node.dir/src/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gateway_node.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/main.cpp > CMakeFiles/gateway_node.dir/src/main.cpp.i
+CMakeFiles/gateway_node.dir/src/server.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/gateway_node.dir/src/server.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/server.cpp > CMakeFiles/gateway_node.dir/src/server.cpp.i
 
-CMakeFiles/gateway_node.dir/src/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gateway_node.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/main.cpp -o CMakeFiles/gateway_node.dir/src/main.cpp.s
+CMakeFiles/gateway_node.dir/src/server.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/gateway_node.dir/src/server.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/server.cpp -o CMakeFiles/gateway_node.dir/src/server.cpp.s
 
 # Object files for target gateway_node
 gateway_node_OBJECTS = \
-"CMakeFiles/gateway_node.dir/src/main.cpp.o"
+"CMakeFiles/gateway_node.dir/src/server.cpp.o"
 
 # External object files for target gateway_node
 gateway_node_EXTERNAL_OBJECTS =
 
-gateway_node: CMakeFiles/gateway_node.dir/src/main.cpp.o
+gateway_node: CMakeFiles/gateway_node.dir/src/server.cpp.o
 gateway_node: CMakeFiles/gateway_node.dir/build.make
 gateway_node: CMakeFiles/gateway_node.dir/compiler_depend.ts
 gateway_node: CMakeFiles/gateway_node.dir/link.txt

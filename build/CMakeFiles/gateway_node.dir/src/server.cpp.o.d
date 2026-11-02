@@ -1,5 +1,5 @@
-CMakeFiles/gateway_node.dir/src/main.cpp.o: \
- /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/main.cpp \
+CMakeFiles/gateway_node.dir/src/server.cpp.o: \
+ /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/server.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/14/iostream \
  /usr/include/c++/14/bits/requires_hosted.h \
  /usr/include/arm-linux-gnueabihf/c++/14/bits/c++config.h \
@@ -161,20 +161,31 @@ CMakeFiles/gateway_node.dir/src/main.cpp.o: \
  /usr/include/c++/14/bits/locale_facets.tcc \
  /usr/include/c++/14/bits/basic_ios.tcc \
  /usr/include/c++/14/bits/ostream.tcc /usr/include/c++/14/istream \
- /usr/include/c++/14/bits/istream.tcc /usr/include/c++/14/thread \
- /usr/include/c++/14/bits/std_thread.h \
- /usr/include/c++/14/bits/unique_ptr.h \
- /usr/include/c++/14/bits/this_thread_sleep.h \
- /usr/include/c++/14/bits/chrono.h /usr/include/c++/14/ratio \
+ /usr/include/c++/14/bits/istream.tcc /usr/include/c++/14/fstream \
+ /usr/include/c++/14/bits/codecvt.h \
+ /usr/include/arm-linux-gnueabihf/c++/14/bits/basic_file.h \
+ /usr/include/arm-linux-gnueabihf/c++/14/bits/c++io.h \
+ /usr/include/c++/14/bits/fstream.tcc /usr/include/unistd.h \
+ /usr/include/arm-linux-gnueabihf/bits/posix_opt.h \
+ /usr/include/arm-linux-gnueabihf/bits/environments.h \
+ /usr/include/arm-linux-gnueabihf/bits/confname.h \
+ /usr/include/arm-linux-gnueabihf/bits/getopt_posix.h \
+ /usr/include/arm-linux-gnueabihf/bits/getopt_core.h \
+ /usr/include/arm-linux-gnueabihf/bits/unistd_ext.h \
+ /usr/include/linux/close_range.h \
+ /usr/include/arm-linux-gnueabihf/sys/socket.h \
+ /usr/include/arm-linux-gnueabihf/bits/types/struct_iovec.h \
+ /usr/include/arm-linux-gnueabihf/bits/socket.h \
+ /usr/include/arm-linux-gnueabihf/bits/socket_type.h \
+ /usr/include/arm-linux-gnueabihf/bits/sockaddr.h \
+ /usr/lib/linux/uapi/arm/asm/socket.h /usr/include/asm-generic/socket.h \
+ /usr/lib/linux/uapi/arm/asm/sockios.h /usr/include/asm-generic/sockios.h \
+ /usr/include/arm-linux-gnueabihf/bits/types/struct_osockaddr.h \
+ /usr/include/netinet/in.h \
+ /usr/include/arm-linux-gnueabihf/bits/stdint-uintn.h \
+ /usr/include/arm-linux-gnueabihf/bits/in.h \
+ /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/include/gpio_controller.hpp \
  /usr/include/c++/14/cstdint \
  /usr/lib/gcc/arm-linux-gnueabihf/14/include/stdint.h \
  /usr/include/stdint.h \
- /usr/include/arm-linux-gnueabihf/bits/stdint-uintn.h \
- /usr/include/arm-linux-gnueabihf/bits/stdint-least.h \
- /usr/include/c++/14/limits /usr/include/c++/14/ctime \
- /usr/include/c++/14/bits/parse_numbers.h /usr/include/c++/14/chrono \
- /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/include/gpio_controller.hpp \
- /usr/include/c++/14/fstream /usr/include/c++/14/bits/codecvt.h \
- /usr/include/arm-linux-gnueabihf/c++/14/bits/basic_file.h \
- /usr/include/arm-linux-gnueabihf/c++/14/bits/c++io.h \
- /usr/include/c++/14/bits/fstream.tcc
+ /usr/include/arm-linux-gnueabihf/bits/stdint-least.h

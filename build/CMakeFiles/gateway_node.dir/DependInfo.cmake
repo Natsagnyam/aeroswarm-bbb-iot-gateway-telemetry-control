@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/main.cpp" "CMakeFiles/gateway_node.dir/src/main.cpp.o" "gcc" "CMakeFiles/gateway_node.dir/src/main.cpp.o.d"
+  "/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/src/server.cpp" "CMakeFiles/gateway_node.dir/src/server.cpp.o" "gcc" "CMakeFiles/gateway_node.dir/src/server.cpp.o.d"
   "" "gateway_node" "gcc" "CMakeFiles/gateway_node.dir/link.d"
   )
 

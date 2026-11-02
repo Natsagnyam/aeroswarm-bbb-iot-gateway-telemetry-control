@@ -2,60 +2,43 @@
 #include <string>
 #include <fstream>
 #include <unistd.h>
-#include <fcntl.h>
-#include <sys/mman.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include "gpio_controller.hpp"
 
-#define GPIO1_BASE 0x4804C000
-#define GPIO_DATAOUT 0x134
-#define GPIO_SETDATAOUT 0x194
-#define GPIO_CLEARDATAOUT 0x190
-#define GPIO_60_BIT (1 << 28) // GPIO 60 is pin 28 on GPIO1 bank
-
-void* gpio1_map = MAP_FAILED;
-
-void init_hardware_direct() {
-    // Ensure LED3 direction is out
+void init_hardware() {
+    // Ensure LED3 (USR3) direction is out
     std::ofstream led_dir("/sys/class/leds/beaglebone:green:usr3/direction");
     if (led_dir.is_open()) led_dir << "out";
 
-    // Ensure GPIO 60 (P9_12) is exported and set to out
+    // Export P9_12 (GPIO 60) as input to read physical signal
     std::ofstream exp_file("/sys/class/gpio/export");
     if (exp_file.is_open()) exp_file << "60";
     std::ofstream dir_file("/sys/class/gpio/gpio60/direction");
-    if (dir_file.is_open()) dir_file << "out";
-
-    int fd = open("/dev/mem", O_RDWR | O_SYNC);
-    if (fd != -1) {
-        gpio1_map = mmap(NULL, 0x1000, PROT_READ | PROT_WRITE, MAP_SHARED, fd, GPIO1_BASE);
-        close(fd);
-    }
+    if (dir_file.is_open()) dir_file << "in";
 }
 
-void set_hardware_state(bool on) {
-    // 1. Toggle LED3
+void set_led3_state(bool on) {
     std::ofstream led_file("/sys/class/leds/beaglebone:green:usr3/brightness");
     if (led_file.is_open()) {
         led_file << (on ? "1" : "0");
     }
-
-    // 2. Toggle P9_12 via mmap or sysfs fallback
-    if (gpio1_map != MAP_FAILED) {
-        volatile uint32_t* reg = (volatile uint32_t*)((char*)gpio1_map + (on ? GPIO_SETDATAOUT : GPIO_CLEARDATAOUT));
-        *reg = GPIO_60_BIT;
-    } else {
-        std::ofstream p9_file("/sys/class/gpio/gpio60/value");
-        if (p9_file.is_open()) p9_file << (on ? "1" : "0");
-    }
 }
 
-bool get_hardware_state() {
+bool get_led3_state() {
     std::ifstream led_file("/sys/class/leds/beaglebone:green:usr3/brightness");
     int val = 0;
     if (led_file.is_open()) {
         led_file >> val;
+    }
+    return (val == 1);
+}
+
+bool read_p9_12_physical() {
+    std::ifstream p9_file("/sys/class/gpio/gpio60/value");
+    int val = 0;
+    if (p9_file.is_open()) {
+        p9_file >> val;
     }
     return (val == 1);
 }
@@ -86,7 +69,7 @@ std::string get_cpu_freq() {
 }
 
 int main() {
-    init_hardware_direct();
+    init_hardware();
 
     int server_fd, new_socket;
     struct sockaddr_in address;
@@ -113,7 +96,7 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    std::cout << "Aeroswarm IoT Gateway & PF Excitation Controller active on port 8080...\n";
+    std::cout << "Aeroswarm IoT Gateway & Excitation Control System active on port 8080...\n";
 
     while (true) {
         if ((new_socket = accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen)) < 0) {
@@ -129,7 +112,7 @@ int main() {
         if (req.find("GET / HTTP") != std::string::npos || req.find("GET /index.html") != std::string::npos) {
             response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n"
                 "<!DOCTYPE html>\n<html>\n<head>\n"
-                "<title>Aeroswarm BBB IoT Gateway & PF Simulation</title>\n"
+                "<title>Aeroswarm BBB IoT Gateway & 3D PF Meter</title>\n"
                 "<style>\n"
                 "  body { background-color: #008b8b; color: #f0f0f0; font-family: monospace; margin: 0; padding: 20px; }\n"
                 "  h1, h2, h3 { color: #ffffff; text-align: center; text-shadow: 2px 2px #000; }\n"
@@ -139,26 +122,27 @@ int main() {
                 "  button:hover { background: #ff6347; }\n"
                 "  canvas { background: #004d4d; border: 2px solid #ffffff; display: block; margin: 10px auto; border-radius: 4px; }\n"
                 "  .metric { font-size: 18px; margin: 8px 0; text-align: center; }\n"
-                "  .author { text-align: center; font-size: 14px; margin-top: 15px; color: #e0ffff; }\n"
+                "  .author { text-align: center; font-size: 12px; margin-top: 8px; color: #e0ffff; line-height: 1.4; }\n"
                 "</style>\n"
                 "</head>\n<body>\n"
-                "  <h1>Aeroswarm Embedded IoT Gateway & Excitation Control</h1>\n"
+                "  <h1>Aeroswarm Embedded IoT Gateway & Excitation Control System</h1>\n"
                 "  <div class=\"grid\">\n"
                 "    <div class=\"card\">\n"
                 "      <h2>Hardware Control</h2>\n"
-                "      <div class=\"metric\">LED3 & P9_12: <span id=\"hw-status\" style=\"font-weight:bold;\">UNKNOWN</span></div>\n"
-                "      <br><div style=\"text-align:center;\"><button onclick=\"toggleHardware()\">Toggle LED3 & P9_12</button></div>\n"
-                "      <h2>BBB System Telemetry</h2>\n"
+                "      <div class=\"metric\">LED3 State: <span id=\"led-status\" style=\"font-weight:bold;\">UNKNOWN</span></div>\n"
+                "      <div class=\"metric\">P9_12 Input: <span id=\"p9-status\" style=\"font-weight:bold;\">UNKNOWN</span></div>\n"
+                "      <br><div style=\"text-align:center;\"><button onclick=\"toggleLed()\">Toggle LED3 via Web</button></div>\n"
+                "      <h2>BBB, BeagleBone Black, System Telemetry</h2>\n"
                 "      <div class=\"metric\">CPU Temp: <span id=\"cpu-temp\">--</span> &deg;C</div>\n"
                 "      <div class=\"metric\">CPU Freq: <span id=\"cpu-freq\">--</span> MHz</div>\n"
                 "      <div class=\"metric\">PMIC Status: <span id=\"pmic-status\" style=\"color:#00ff00;\">ONLINE (Active)</span></div>\n"
                 "    </div>\n"
-                "    <div class=\"card\" style=\"width: 600px;\">\n"
-                "      <h2>Power Simulation & PF Meter</h2>\n"
+                "    <div class=\"card\" style=\"width: 620px;\">\n"
+                "      <h2>Power System Simulation & Natska_Lab PF Meter</h2>\n"
                 "      <div class=\"metric\" id=\"state-label\" style=\"font-weight:bold; color:#fffa65;\">State: --</div>\n"
-                "      <div style=\"display: flex; justify-content: center; gap: 20px; align-items: center;\">\n"
-                "        <canvas id=\"waveCanvas\" width=\"280\" height=\"240\"></canvas>\n"
-                "        <canvas id=\"pfCanvas\" width=\"240\" height=\"240\"></canvas>\n"
+                "      <div style=\"display: flex; justify-content: center; gap: 15px; align-items: center;\">\n"
+                "        <canvas id=\"waveCanvas\" width=\"270\" height=\"240\"></canvas>\n"
+                "        <canvas id=\"pfCanvas\" width=\"270\" height=\"240\"></canvas>\n"
                 "      </div>\n"
                 "      <div style=\"font-size:12px; text-align:center; margin-top:8px;\">\n"
                 "        <span style=\"color:#000000; background:#ccc; padding:2px 4px; font-weight:bold;\">■ V (Black)</span> &nbsp;\n"
@@ -166,18 +150,19 @@ int main() {
                 "        <span style=\"color:#ff3333; font-weight:bold;\">■ MW (Red)</span> &nbsp;\n"
                 "        <span style=\"color:#ffffff; font-weight:bold;\">■ MVAR (White)</span>\n"
                 "      </div>\n"
-                "      <div class=\"author\">Author (Natska) Natsagnyam NAMKHAI 2026 Nov</div>\n"
+                "      <div class=\"author\">Author (Natska) Natsagnyam NAMKHAI 2026 Nov | TYPE: Natska_Lab_ZPF<br>SERIAL NO. 2024002</div>\n"
                 "    </div>\n"
                 "  </div>\n"
                 "  <script>\n"
                 "    function fetchStatus() {\n"
                 "      fetch('/api/status').then(r => r.json()).then(data => {\n"
-                "        document.getElementById('hw-status').innerText = data.led ? 'ON (HIGH)' : 'OFF (LOW)';\n"
+                "        document.getElementById('led-status').innerText = data.led ? 'ON (HIGH)' : 'OFF (LOW)';\n"
+                "        document.getElementById('p9-status').innerText = data.p9 ? 'HIGH (3.3V)' : 'LOW (0V)';\n"
                 "        document.getElementById('cpu-temp').innerText = parseFloat(data.cpu_temp).toFixed(1);\n"
                 "        document.getElementById('cpu-freq').innerText = (parseInt(data.cpu_freq) / 1000).toFixed(0);\n"
                 "      }).catch(err => console.error(err));\n"
                 "    }\n"
-                "    function toggleHardware() {\n"
+                "    function toggleLed() {\n"
                 "      fetch('/api/relay', {\n"
                 "        method: 'POST',\n"
                 "        headers: { 'Authorization': 'Bearer Natska2026', 'Content-Type': 'application/json' },\n"
@@ -195,15 +180,14 @@ int main() {
                 "\n"
                 "    function draw() {\n"
                 "      let elapsed = (Date.now() - startTime) / 1000;\n"
-                "      // Phase angle sweeps smoothly from -1.57 rad (-90 deg, PF=0 lag) to +1.57 rad (+90 deg, PF=0 lead)\n"
-                "      let phaseTheta = Math.sin(elapsed * 0.8) * 1.57;\n"
+                "      let phaseTheta = Math.sin(elapsed * 0.7) * 1.57;\n"
                 "      let pf = Math.cos(phaseTheta);\n"
+                "      let isLeading = phaseTheta < 0;\n"
                 "\n"
-                "      let isLeading = phaseTheta > 0;\n"
                 "      let stateStr = isLeading ? 'Generator capacitive leading' : 'Generator inductive lagging';\n"
                 "      document.getElementById('state-label').innerText = stateStr + ' (PF: ' + pf.toFixed(2) + ')';\n"
                 "\n"
-                "      // --- 1. Draw Waveform Canvas ---\n"
+                "      // Waveform Canvas\n"
                 "      wCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);\n"
                 "      wCtx.strokeStyle = '#20b2aa'; wCtx.lineWidth = 1;\n"
                 "      wCtx.beginPath(); wCtx.moveTo(0, waveCanvas.height / 2); wCtx.lineTo(waveCanvas.width, waveCanvas.height / 2); wCtx.stroke();\n"
@@ -211,7 +195,6 @@ int main() {
                 "      let w = waveCanvas.width, h = waveCanvas.height, midY = h / 2, amp = 60;\n"
                 "      let i2Phase = phaseTheta - (Math.PI / 2);\n"
                 "\n"
-                "      // Voltage V (Black, fat)\n"
                 "      wCtx.strokeStyle = '#000000'; wCtx.lineWidth = 3; wCtx.beginPath();\n"
                 "      for (let x = 0; x < w; x++) {\n"
                 "        let t = (x / w) * 0.02;\n"
@@ -220,7 +203,6 @@ int main() {
                 "      }\n"
                 "      wCtx.stroke();\n"
                 "\n"
-                "      // Current I (Blue)\n"
                 "      wCtx.strokeStyle = '#1e90ff'; wCtx.lineWidth = 2; wCtx.beginPath();\n"
                 "      for (let x = 0; x < w; x++) {\n"
                 "        let t = (x / w) * 0.02;\n"
@@ -229,8 +211,8 @@ int main() {
                 "      }\n"
                 "      wCtx.stroke();\n"
                 "\n"
-                "      // MW (Red) = V * I\n"
-                "      wCtx.strokeStyle = '#ff3333'; wCtx.lineWidth = 2; wCtx.beginPath();\n"
+                "      // MW (Red, FAT) = V * I\n"
+                "      wCtx.strokeStyle = '#ff3333'; wCtx.lineWidth = 5; wCtx.beginPath();\n"
                 "      for (let x = 0; x < w; x++) {\n"
                 "        let t = (x / w) * 0.02;\n"
                 "        let v = Math.sin(2 * Math.PI * 50 * t);\n"
@@ -240,7 +222,6 @@ int main() {
                 "      }\n"
                 "      wCtx.stroke();\n"
                 "\n"
-                "      // MVAR (White, fat) = V * I2\n"
                 "      wCtx.strokeStyle = '#ffffff'; wCtx.lineWidth = 4; wCtx.beginPath();\n"
                 "      for (let x = 0; x < w; x++) {\n"
                 "        let t = (x / w) * 0.02;\n"
@@ -251,61 +232,112 @@ int main() {
                 "      }\n"
                 "      wCtx.stroke();\n"
                 "\n"
-                "      // --- 2. Draw Round PF Meter Canvas ---\n"
+                "      // 3D PF Meter Canvas\n"
                 "      pfCtx.fillStyle = '#ffffff'; pfCtx.fillRect(0, 0, pfCanvas.width, pfCanvas.height);\n"
-                "      let cx = pfCanvas.width / 2, cy = pfCanvas.height / 2, radius = 95;\n"
+                "      let cx = pfCanvas.width / 2, cy = pfCanvas.height / 2, radius = 105;\n"
                 "\n"
-                "      // Outer black bezel\n"
-                "      pfCtx.strokeStyle = '#111'; pfCtx.lineWidth = 8;\n"
-                "      pfCtx.beginPath(); pfCtx.arc(cx, cy, radius + 4, 0, 2 * Math.PI); pfCtx.stroke();\n"
+                "      pfCtx.shadowColor = 'rgba(0, 0, 0, 0.5)';\n"
+                "      pfCtx.shadowBlur = 8;\n"
+                "      pfCtx.shadowOffsetX = 2;\n"
+                "      pfCtx.shadowOffsetY = 4;\n"
                 "\n"
-                "      // White dial face\n"
-                "      pfCtx.fillStyle = '#ffffff'; pfCtx.beginPath(); pfCtx.arc(cx, cy, radius, 0, 2 * Math.PI); pfCtx.fill();\n"
+                "      let grad = pfCtx.createRadialGradient(cx - 15, cy - 15, 10, cx, cy, radius + 5);\n"
+                "      grad.addColorStop(0, '#e0e0e0');\n"
+                "      grad.addColorStop(0.7, '#888888');\n"
+                "      grad.addColorStop(1, '#222222');\n"
                 "\n"
-                "      // Tick marks and numbers\n"
-                "      pfCtx.fillStyle = '#000'; pfCtx.font = 'bold 11px monospace'; pfCtx.textAlign = 'center'; pfCtx.textBaseline = 'middle';\n"
-                "      for (let angleDeg = -80; angleDeg <= 80; angleDeg += 10) {\n"
+                "      pfCtx.strokeStyle = grad;\n"
+                "      pfCtx.lineWidth = 7;\n"
+                "      pfCtx.beginPath(); pfCtx.arc(cx, cy, radius + 2, 0, 2 * Math.PI); pfCtx.stroke();\n"
+                "\n"
+                "      pfCtx.shadowColor = 'transparent';\n"
+                "      pfCtx.fillStyle = '#ffffff';\n"
+                "      pfCtx.beginPath(); pfCtx.arc(cx, cy, radius - 2, 0, 2 * Math.PI); pfCtx.fill();\n"
+                "\n"
+                "      pfCtx.fillStyle = '#000'; pfCtx.font = 'bold 10px monospace'; pfCtx.textAlign = 'center'; pfCtx.textBaseline = 'middle';\n"
+                "      for (let angleDeg = -90; angleDeg <= 90; angleDeg += 5) {\n"
                 "        let rad = (angleDeg - 90) * (Math.PI / 180);\n"
-                "        let r1 = radius - 8, r2 = radius - 15;\n"
-                "        if (angleDeg % 20 === 0) r2 = radius - 18;\n"
-                "        pfCtx.strokeStyle = '#000'; pfCtx.lineWidth = (angleDeg % 20 === 0) ? 2 : 1;\n"
+                "        let r1 = radius - 6, r2 = radius - 12;\n"
+                "        if (angleDeg % 15 === 0) r2 = radius - 16;\n"
+                "        pfCtx.strokeStyle = '#000'; pfCtx.lineWidth = (angleDeg % 15 === 0) ? 2 : 1;\n"
                 "        pfCtx.beginPath();\n"
                 "        pfCtx.moveTo(cx + r1 * Math.cos(rad), cy + r1 * Math.sin(rad));\n"
                 "        pfCtx.lineTo(cx + r2 * Math.cos(rad), cy + r2 * Math.sin(rad));\n"
                 "        pfCtx.stroke();\n"
-                "\n"
-                "        // Number labels for 1.0, .9, .7, .5, 0\n"
-                "        if (angleDeg === 0) { pfCtx.fillText('1.0', cx + (r2 - 12) * Math.cos(rad), cy + (r2 - 12) * Math.sin(rad)); }\n"
-                "        else if (angleDeg === 30) { pfCtx.fillText('.9', cx + (r2 - 12) * Math.cos(rad), cy + (r2 - 12) * Math.sin(rad)); }\n"
-                "        else if (angleDeg === 55) { pfCtx.fillText('.7', cx + (r2 - 12) * Math.cos(rad), cy + (r2 - 12) * Math.sin(rad)); }\n"
-                "        else if (angleDeg === 75) { pfCtx.fillText('.5', cx + (r2 - 12) * Math.cos(rad), cy + (r2 - 12) * Math.sin(rad)); }\n"
-                "        else if (angleDeg === -30) { pfCtx.fillText('.9', cx + (r2 - 12) * Math.cos(rad), cy + (r2 - 12) * Math.sin(rad)); }\n"
-                "        else if (angleDeg === -55) { pfCtx.fillText('.7', cx + (r2 - 12) * Math.cos(rad), cy + (r2 - 12) * Math.sin(rad)); }\n"
-                "        else if (angleDeg === -75) { pfCtx.fillText('.5', cx + (r2 - 12) * Math.cos(rad), cy + (r2 - 12) * Math.sin(rad)); }\n"
                 "      }\n"
                 "\n"
-                "      // Labels: LAG, LEAD, POWER FACTOR\n"
+                "      pfCtx.font = 'bold 11px sans-serif';\n"
+                "      pfCtx.fillText('1.0', cx, cy - radius + 28);\n"
                 "      pfCtx.font = 'bold 10px sans-serif';\n"
-                "      pfCtx.fillText('LAG', cx - 45, cy - 15);\n"
-                "      pfCtx.fillText('LEAD', cx + 45, cy - 15);\n"
-                "      pfCtx.font = 'bold 11px sans-serif'; pfCtx.fillStyle = '#222';\n"
-                "      pfCtx.fillText('POWER FACTOR', cx, cy + 25);\n"
+                "      pfCtx.fillText('0.8', cx + 42, cy - radius + 38);\n"
+                "      pfCtx.fillText('0.6', cx + 72, cy - radius + 62);\n"
+                "      pfCtx.fillText('0.4', cx + 90, cy - radius + 95);\n"
+                "      pfCtx.fillText('0.2', cx + 101, cy - radius + 128);\n"
+                "      pfCtx.fillText('0',   cx + 105, cy - radius + 162);\n"
                 "\n"
-                "      // Center cap hub\n"
-                "      pfCtx.fillStyle = '#e0e0e0'; pfCtx.beginPath(); pfCtx.arc(cx, cy, 14, 0, 2 * Math.PI); pfCtx.fill();\n"
-                "      pfCtx.strokeStyle = '#888'; pfCtx.lineWidth = 1; pfCtx.stroke();\n"
-                "      pfCtx.fillStyle = '#fff'; pfCtx.beginPath(); pfCtx.arc(cx, cy, 5, 0, 2 * Math.PI); pfCtx.fill();\n"
+                "      pfCtx.fillText('0.8', cx - 42, cy - radius + 38);\n"
+                "      pfCtx.fillText('0.6', cx - 72, cy - radius + 62);\n"
+                "      pfCtx.fillText('0.4', cx - 90, cy - radius + 95);\n"
+                "      pfCtx.fillText('0.2', cx - 101, cy - radius + 128);\n"
+                "      pfCtx.fillText('0',   cx - 105, cy - radius + 162);\n"
                 "\n"
-                "      // Needle angle mapping: pf goes 1.0 (top, 0 deg) down to 0 (left/right, +/- 85 deg)\n"
-                "      // phaseTheta ranges from -1.57 (lag) to +1.57 (lead)\n"
-                "      let needleAngleDeg = (phaseTheta / 1.57) * 75;\n"
+                "      // UPF in Green at center top\n"
+                "      pfCtx.font = 'bold 10px sans-serif'; pfCtx.fillStyle = '#00aa00';\n"
+                "      pfCtx.fillText('UPF', cx, cy - radius + 42);\n"
+                "\n"
+                "      // Power Factor Meter label just below needle hub\n"
+                "      pfCtx.font = 'bold 11px sans-serif'; pfCtx.fillStyle = '#000';\n"
+                "      pfCtx.fillText('Power Factor meter', cx, cy + 32);\n"
+                "\n"
+                "      pfCtx.font = 'bold 9px sans-serif';\n"
+                "      pfCtx.fillText('TYPE: Natska_Lab_ZPF', cx, cy + 50);\n"
+                "      pfCtx.font = '8px sans-serif';\n"
+                "      pfCtx.fillText('SERIAL NO. 2024002', cx, cy + 62);\n"
+                "\n"
+                "      pfCtx.save();\n"
+                "      pfCtx.font = 'bold 9px sans-serif'; pfCtx.fillStyle = '#000';\n"
+                "      pfCtx.translate(cx - 52, cy - 20); pfCtx.rotate(-0.7);\n"
+                "      pfCtx.fillText('Leading / Capacitive', 0, 0);\n"
+                "      pfCtx.restore();\n"
+                "\n"
+                "      pfCtx.save();\n"
+                "      pfCtx.font = 'bold 9px sans-serif'; pfCtx.fillStyle = '#000';\n"
+                "      pfCtx.translate(cx + 48, cy - 32); pfCtx.rotate(0.7);\n"
+                "      pfCtx.fillText('Lagging / Inductive', 0, 0);\n"
+                "      pfCtx.restore();\n"
+                "\n"
+                "      // Center hub with 3D shadow\n"
+                "      pfCtx.shadowColor = 'rgba(0,0,0,0.4)'; pfCtx.shadowBlur = 4;\n"
+                "      pfCtx.fillStyle = '#cc0000'; pfCtx.beginPath(); pfCtx.arc(cx, cy, 12, 0, 2 * Math.PI); pfCtx.fill();\n"
+                "      pfCtx.shadowColor = 'transparent';\n"
+                "      pfCtx.strokeStyle = '#555'; pfCtx.lineWidth = 1; pfCtx.stroke();\n"
+                "      pfCtx.fillStyle = '#fff'; pfCtx.beginPath(); pfCtx.arc(cx, cy, 4, 0, 2 * Math.PI); pfCtx.fill();\n"
+                "\n"
+                "      // Needle angle mapping: phaseTheta ranges from -1.57 (-90 deg) to +1.57 (+90 deg)\n"
+                "      // -90 deg points exactly to 0 on left (-90 deg scale), +90 deg points to 0 on right (+90 deg scale)\n"
+                "      let needleAngleDeg = (phaseTheta / 1.57) * 90;\n"
                 "      let needleRad = (needleAngleDeg - 90) * (Math.PI / 180);\n"
                 "\n"
-                "      pfCtx.strokeStyle = '#111'; pfCtx.lineWidth = 3;\n"
+                "      pfCtx.strokeStyle = '#cc0000'; pfCtx.lineWidth = 4;\n"
                 "      pfCtx.beginPath();\n"
                 "      pfCtx.moveTo(cx, cy);\n"
-                "      pfCtx.lineTo(cx + (radius - 22) * Math.cos(needleRad), cy + (radius - 22) * Math.sin(needleRad));\n"
+                "      let tipX = cx + (radius - 22) * Math.cos(needleRad);\n"
+                "      let tipY = cy + (radius - 22) * Math.sin(needleRad);\n"
+                "      pfCtx.lineTo(tipX, tipY);\n"
                 "      pfCtx.stroke();\n"
+                "\n"
+                "      // Arrowhead triangle\n"
+                "      pfCtx.fillStyle = '#cc0000';\n"
+                "      pfCtx.save();\n"
+                "      pfCtx.translate(tipX, tipY);\n"
+                "      pfCtx.rotate(needleRad + Math.PI / 2);\n"
+                "      pfCtx.beginPath();\n"
+                "      pfCtx.moveTo(0, 0);\n"
+                "      pfCtx.lineTo(-5, 12);\n"
+                "      pfCtx.lineTo(5, 12);\n"
+                "      pfCtx.closePath();\n"
+                "      pfCtx.fill();\n"
+                "      pfCtx.restore();\n"
                 "\n"
                 "      requestAnimationFrame(draw);\n"
                 "    }\n"
@@ -313,16 +345,18 @@ int main() {
                 "  </script>\n"
                 "</body>\n</html>\n";
         } else if (req.find("GET /api/status") != std::string::npos) {
-            bool led = get_hardware_state();
+            bool led = get_led3_state();
+            bool p9 = read_p9_12_physical();
             std::string temp = get_cpu_temp();
             std::string freq = get_cpu_freq();
             response = "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\r\n"
                        "{\"status\":\"active\",\"led\": " + std::string(led ? "true" : "false") + 
+                       ",\"p9\": " + std::string(p9 ? "true" : "false") + 
                        ",\"cpu_temp\":\"" + temp + "\",\"cpu_freq\":\"" + freq + "\"}\n";
         } else if (req.find("POST /api/relay") != std::string::npos) {
             if (req.find("Authorization: Bearer Natska2026") != std::string::npos) {
-                bool current_led = get_hardware_state();
-                set_hardware_state(!current_led);
+                bool current_led = get_led3_state();
+                set_led3_state(!current_led);
                 response = "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\r\n{\"success\":true,\"led\":" + std::string(!current_led ? "true" : "false") + "}\n";
             } else {
                 response = "HTTP/1.1 401 Unauthorized\r\nContent-Type: application/json\r\n\r\n{\"error\":\"Unauthorized\"}\n";

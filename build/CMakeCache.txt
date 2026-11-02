@@ -124,21 +124,6 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 //Value Computed by CMake
 CMAKE_PROJECT_NAME:STATIC=aeroswarm_bbb_gateway
 
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION:STATIC=1.0
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_MAJOR:STATIC=1
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_MINOR:STATIC=0
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_PATCH:STATIC=
-
-//Value Computed by CMake
-CMAKE_PROJECT_VERSION_TWEAK:STATIC=
-
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
 
@@ -212,15 +197,6 @@ aeroswarm_bbb_gateway_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 aeroswarm_bbb_gateway_SOURCE_DIR:STATIC=/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control
-
-//Value Computed by CMake
-aeroswarm_edge_gateway_BINARY_DIR:STATIC=/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build
-
-//Value Computed by CMake
-aeroswarm_edge_gateway_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-aeroswarm_edge_gateway_SOURCE_DIR:STATIC=/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control
 
 
 ########################

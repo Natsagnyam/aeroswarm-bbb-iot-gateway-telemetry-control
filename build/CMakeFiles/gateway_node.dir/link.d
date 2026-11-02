@@ -2,7 +2,7 @@ gateway_node: \
   /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/Scrt1.o \
   /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crti.o \
   /usr/lib/gcc/arm-linux-gnueabihf/14/crtbeginS.o \
-  CMakeFiles/gateway_node.dir/src/main.cpp.o \
+  CMakeFiles/gateway_node.dir/src/server.cpp.o \
   /usr/lib/gcc/arm-linux-gnueabihf/14/libstdc++.so \
   /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/libm.so \
   /usr/lib/gcc/arm-linux-gnueabihf/14/libgcc_s.so \
@@ -34,7 +34,7 @@ gateway_node: \
 
 /usr/lib/gcc/arm-linux-gnueabihf/14/crtbeginS.o:
 
-CMakeFiles/gateway_node.dir/src/main.cpp.o:
+CMakeFiles/gateway_node.dir/src/server.cpp.o:
 
 /usr/lib/gcc/arm-linux-gnueabihf/14/libstdc++.so:
 

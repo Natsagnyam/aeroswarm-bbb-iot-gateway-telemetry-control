@@ -1,37 +1,60 @@
-# Aeroswarm BBB IoT Gateway: Telemetry & Control
+# Aeroswarm BBB IoT Gateway & Excitation Control System
 
-A high-performance, low-latency embedded Linux gateway designed for the **BeagleBone Black (AM335x ARM architecture)**. This project bridges kernel-space hardware register memory-mapping with a zero-allocation C++ user-space controller for real-time GPIO telemetry and actuator control.
+Embedded Linux IoT gateway and excitation control dashboard running on BeagleBone Black (`192.168.7.2:8080`).
+![web_Control_Monitor](assets/IoT_MVAR_MW_PF_Metering.png)
 
-## Architecture & Design
+## Features
+- **Hardware Control & Telemetry**: Web-based control for LED3 (`USR3`) and physical input monitoring for pin `P9_12` (GPIO 60), paired with real-time CPU temperature and frequency telemetry.
+- **Power System Simulation & ZPF Meter**: Real-time 50Hz waveform plotting for Voltage ($V$, black), Current ($I$, blue), Active Power ($\text{MW} = V \times I$, red, fat), and Reactive Power ($\text{MVAR} = V \times I_2$, white).
+- **3D Natska_Lab PF Meter**: Animated analog Power Factor meter featuring a 3D bevel effect, green **UPF** center label, arrowhead needle calibrated to 0 at $\pm 90^\circ$ phase shifts, and custom metadata (`TYPE: Natska_Lab_ZPF`, `SERIAL NO. 2024002`).
 
-- **Kernel Driver (`kernel_driver/`)**: An out-of-tree character device driver (`bbb_custom_gpio`) utilizing standard `ioremap` to map the AM335x GPIO0 register space (`0x44e07000`) safely without resource conflicts. It supports direct 32-bit hardware register reads (`GPIO_DATAIN`) and atomic bitmask writes via `GPIO_SETDATAOUT` and `GPIO_CLEARDATAOUT`.
-- **C++ Controller (`include/gpio_controller.hpp`)**: A zero-allocation, hot-path safe C++ wrapper utilizing direct file descriptor operations (`pread`/`write`) and an 8-byte command payload struct (`mask` + `value`).
-- **Build System**: Lightweight `Makefile` compiling with `-O3` optimization standards for bare-metal performance.
+---
 
-## Repository Structure
+## Build Instructions
 
+1. Clone or navigate to the project directory on your BeagleBone:
+bash
+cd ~/aeroswarm-bbb-iot-gateway-telemetry-control
+
+2. Create a build directory and compile using CMake:
+bash
+mkdir -p build && cd build
+cmake ..
+make
+
+
+---
+
+## Test & Verification Instructions
+
+### 1. Running the Server
+Launch the compiled binary with root privileges (required for GPIO and memory-mapped hardware access):
+bash
+sudo ./iot_gateway_server
+
+*Expected Output:* `Aeroswarm IoT Gateway & Natska PF Meter active on port 8080...`
+
+### 2. Accessing the Web Dashboard
+Open your laptop browser and navigate to:
 text
-aeroswarm-bbb-iot-gateway-telemetry-control/
-├── include/
-│   └── gpio_controller.hpp   # Zero-allocation C++ GPIO controller
-├── src/
-│   └── main.cpp              # Gateway test runner & execution loop
-├── kernel_driver/            # Out-of-tree AM335x GPIO kernel module
-├── Makefile                  # Build automation
-└── README.md
+http://192.168.7.2:8080
 
 
-## Quick Start
-
-### 1. Build the Gateway Node
+### 3. Testing API Endpoints via `curl`
+* **Check System Status (JSON):**
 bash
-make clean && make
+curl -s http://192.168.7.2:8080/api/status
 
-
-### 2. Run the Gateway Application
+* **Test LED3 Toggle (POST with Bearer Token):**
 bash
-sudo ./gateway_node
+curl -X POST http://192.168.7.2:8080/api/relay 
+
+-H "Authorization: Bearer Natska2026" 
+
+-H "Content-Type: application/json" 
+
+-d '{"action":"toggle"}'
 
 
-## License
-GPL v2 / MIT
+---
+**Author:** (Natska) Natsagnyam NAMKHAI (2026 Nov)

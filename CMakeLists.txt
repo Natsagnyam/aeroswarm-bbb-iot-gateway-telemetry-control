@@ -11,7 +11,8 @@ enable_testing()
 include_directories(include)
 
 # Main console gateway node target
-add_executable(gateway_node src/main.cpp)
+# add_executable(gateway_node src/main.cpp)
+add_executable(gateway_node src/server.cpp)
 
 # IoT Gateway Server target (expects src/server.cpp or similar)
 add_executable(iot_gateway_server src/server.cpp)
