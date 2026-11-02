@@ -1,0 +1,1 @@
+savedcmd_bbb_gpio_driver.ko := ld -r -EL -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /usr/src/linux-headers-6.18.55-bone57/scripts/module.lds -o bbb_gpio_driver.ko bbb_gpio_driver.o bbb_gpio_driver.mod.o .module-common.o
