@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/iot_gateway_server.dir/link.d CMakeFiles/iot_gateway_server.dir/src/server.cpp.o -o iot_gateway_server

@@ -1,0 +1,281 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Linux - 6.18.55-bone57 - armv7l
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /usr/bin/c++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is GNU, found in:
+        /home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/3.31.6/CompilerIdCXX/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/CMakeScratch/TryCompile-P6faX0"
+      binary: "/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/CMakeScratch/TryCompile-P6faX0"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/CMakeScratch/TryCompile-P6faX0'
+        
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_707eb/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_707eb.dir/build.make CMakeFiles/cmTC_707eb.dir/build
+        gmake[1]: Entering directory '/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/CMakeScratch/TryCompile-P6faX0'
+        Building CXX object CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -v -o CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/c++
+        Target: arm-linux-gnueabihf
+        Configured with: ../src/configure -v --with-pkgversion='Debian 14.2.0-19' --with-bugurl=file:///usr/share/doc/gcc-14/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2,rust --prefix=/usr --with-gcc-major-version-only --program-suffix=-14 --program-prefix=arm-linux-gnueabihf- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv7-a+fp --with-float=hard --with-mode=thumb --disable-werror --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 14.2.0 (Debian 14.2.0-19) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mtls-dialect=gnu' '-mthumb' '-mlibarch=armv7-a+fp' '-march=armv7-a+fp' '-dumpdir' 'CMakeFiles/cmTC_707eb.dir/'
+         /usr/libexec/gcc/arm-linux-gnueabihf/14/cc1plus -quiet -v -imultilib . -imultiarch arm-linux-gnueabihf -D_GNU_SOURCE /usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64 -quiet -dumpdir CMakeFiles/cmTC_707eb.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mfloat-abi=hard -mtls-dialect=gnu -mthumb -mlibarch=armv7-a+fp -march=armv7-a+fp -version -o /tmp/ccW8o6g9.s
+        GNU C++17 (Debian 14.2.0-19) version 14.2.0 (arm-linux-gnueabihf)
+        	compiled by GNU C version 14.2.0, GMP version 6.3.0, MPFR version 4.2.1, MPC version 1.3.1, isl version isl-0.27-GMP
+        
+        warning: MPFR header version 4.2.1 differs from library version 4.2.2.
+        GGC heuristics: --param ggc-min-expand=62 --param ggc-min-heapsize=61627
+        ignoring duplicate directory "/usr/include/arm-linux-gnueabihf/c++/14"
+        ignoring nonexistent directory "/usr/local/include/arm-linux-gnueabihf"
+        ignoring nonexistent directory "/usr/lib/gcc/arm-linux-gnueabihf/14/include-fixed/arm-linux-gnueabihf"
+        ignoring nonexistent directory "/usr/lib/gcc/arm-linux-gnueabihf/14/include-fixed"
+        ignoring nonexistent directory "/usr/lib/gcc/arm-linux-gnueabihf/14/../../../../arm-linux-gnueabihf/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/include/c++/14
+         /usr/include/arm-linux-gnueabihf/c++/14
+         /usr/include/c++/14/backward
+         /usr/lib/gcc/arm-linux-gnueabihf/14/include
+         /usr/local/include
+         /usr/include/arm-linux-gnueabihf
+         /usr/include
+        End of search list.
+        Compiler executable checksum: ce13dcefea3c7f8e56ced710524c9392
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mtls-dialect=gnu' '-mthumb' '-mlibarch=armv7-a+fp' '-march=armv7-a+fp' '-dumpdir' 'CMakeFiles/cmTC_707eb.dir/'
+         as -v -march=armv7-a+fp -mfloat-abi=hard -meabi=5 -o CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccW8o6g9.s
+        GNU assembler version 2.44 (arm-linux-gnueabihf) using BFD version (GNU Binutils for Debian) 2.44
+        COMPILER_PATH=/usr/libexec/gcc/arm-linux-gnueabihf/14/:/usr/libexec/gcc/arm-linux-gnueabihf/14/:/usr/libexec/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/14/:/usr/lib/gcc/arm-linux-gnueabihf/
+        LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/14/:/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/14/../../../:/lib/arm-linux-gnueabihf/:/lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mtls-dialect=gnu' '-mthumb' '-mlibarch=armv7-a+fp' '-march=armv7-a+fp' '-dumpdir' 'CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_707eb
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_707eb.dir/link.txt --verbose=1
+        Using built-in specs.
+        COLLECT_GCC=/usr/bin/c++
+        COLLECT_LTO_WRAPPER=/usr/libexec/gcc/arm-linux-gnueabihf/14/lto-wrapper
+        Target: arm-linux-gnueabihf
+        Configured with: ../src/configure -v --with-pkgversion='Debian 14.2.0-19' --with-bugurl=file:///usr/share/doc/gcc-14/README.Bugs --enable-languages=c,ada,c++,go,d,fortran,objc,obj-c++,m2,rust --prefix=/usr --with-gcc-major-version-only --program-suffix=-14 --program-prefix=arm-linux-gnueabihf- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv7-a+fp --with-float=hard --with-mode=thumb --disable-werror --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 14.2.0 (Debian 14.2.0-19) 
+        COMPILER_PATH=/usr/libexec/gcc/arm-linux-gnueabihf/14/:/usr/libexec/gcc/arm-linux-gnueabihf/14/:/usr/libexec/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/14/:/usr/lib/gcc/arm-linux-gnueabihf/
+        LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/14/:/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/14/../../../:/lib/arm-linux-gnueabihf/:/lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_707eb' '-shared-libgcc'  '-mfloat-abi=hard' '-mtls-dialect=gnu' '-mthumb' '-mlibarch=armv7-a+fp' '-march=armv7-a+fp' '-dumpdir' 'cmTC_707eb.'
+         /usr/libexec/gcc/arm-linux-gnueabihf/14/collect2 -plugin /usr/libexec/gcc/arm-linux-gnueabihf/14/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/arm-linux-gnueabihf/14/lto-wrapper -plugin-opt=-fresolution=/tmp/ccCjax7q.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -pie -o cmTC_707eb /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/Scrt1.o /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/14/crtbeginS.o -L/usr/lib/gcc/arm-linux-gnueabihf/14 -L/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/14/../../.. -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf -v CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/arm-linux-gnueabihf/14/crtendS.o /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crtn.o
+        collect2 version 14.2.0
+        /usr/bin/ld -plugin /usr/libexec/gcc/arm-linux-gnueabihf/14/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/arm-linux-gnueabihf/14/lto-wrapper -plugin-opt=-fresolution=/tmp/ccCjax7q.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -pie -o cmTC_707eb /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/Scrt1.o /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/14/crtbeginS.o -L/usr/lib/gcc/arm-linux-gnueabihf/14 -L/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/14/../../.. -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf -v CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/arm-linux-gnueabihf/14/crtendS.o /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crtn.o
+        GNU ld (GNU Binutils for Debian) 2.44
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_707eb' '-shared-libgcc'  '-mfloat-abi=hard' '-mtls-dialect=gnu' '-mthumb' '-mlibarch=armv7-a+fp' '-march=armv7-a+fp' '-dumpdir' 'cmTC_707eb.'
+        /usr/bin/c++  -v -Wl,-v CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_707eb
+        gmake[1]: Leaving directory '/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/CMakeScratch/TryCompile-P6faX0'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:182 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/include/c++/14]
+          add: [/usr/include/arm-linux-gnueabihf/c++/14]
+          add: [/usr/include/c++/14/backward]
+          add: [/usr/lib/gcc/arm-linux-gnueabihf/14/include]
+          add: [/usr/local/include]
+          add: [/usr/include/arm-linux-gnueabihf]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/include/c++/14] ==> [/usr/include/c++/14]
+        collapse include dir [/usr/include/arm-linux-gnueabihf/c++/14] ==> [/usr/include/arm-linux-gnueabihf/c++/14]
+        collapse include dir [/usr/include/c++/14/backward] ==> [/usr/include/c++/14/backward]
+        collapse include dir [/usr/lib/gcc/arm-linux-gnueabihf/14/include] ==> [/usr/lib/gcc/arm-linux-gnueabihf/14/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include/arm-linux-gnueabihf] ==> [/usr/include/arm-linux-gnueabihf]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/include/c++/14;/usr/include/arm-linux-gnueabihf/c++/14;/usr/include/c++/14/backward;/usr/lib/gcc/arm-linux-gnueabihf/14/include;/usr/local/include;/usr/include/arm-linux-gnueabihf;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:218 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: '/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/CMakeScratch/TryCompile-P6faX0']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_707eb/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_707eb.dir/build.make CMakeFiles/cmTC_707eb.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/CMakeScratch/TryCompile-P6faX0']
+        ignore line: [Building CXX object CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -v -o CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/c++]
+        ignore line: [Target: arm-linux-gnueabihf]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Debian 14.2.0-19' --with-bugurl=file:///usr/share/doc/gcc-14/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ m2 rust --prefix=/usr --with-gcc-major-version-only --program-suffix=-14 --program-prefix=arm-linux-gnueabihf- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv7-a+fp --with-float=hard --with-mode=thumb --disable-werror --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 14.2.0 (Debian 14.2.0-19) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mtls-dialect=gnu' '-mthumb' '-mlibarch=armv7-a+fp' '-march=armv7-a+fp' '-dumpdir' 'CMakeFiles/cmTC_707eb.dir/']
+        ignore line: [ /usr/libexec/gcc/arm-linux-gnueabihf/14/cc1plus -quiet -v -imultilib . -imultiarch arm-linux-gnueabihf -D_GNU_SOURCE /usr/share/cmake-3.31/Modules/CMakeCXXCompilerABI.cpp -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64 -quiet -dumpdir CMakeFiles/cmTC_707eb.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mfloat-abi=hard -mtls-dialect=gnu -mthumb -mlibarch=armv7-a+fp -march=armv7-a+fp -version -o /tmp/ccW8o6g9.s]
+        ignore line: [GNU C++17 (Debian 14.2.0-19) version 14.2.0 (arm-linux-gnueabihf)]
+        ignore line: [	compiled by GNU C version 14.2.0  GMP version 6.3.0  MPFR version 4.2.1  MPC version 1.3.1  isl version isl-0.27-GMP]
+        ignore line: []
+        ignore line: [warning: MPFR header version 4.2.1 differs from library version 4.2.2.]
+        ignore line: [GGC heuristics: --param ggc-min-expand=62 --param ggc-min-heapsize=61627]
+        ignore line: [ignoring duplicate directory "/usr/include/arm-linux-gnueabihf/c++/14"]
+        ignore line: [ignoring nonexistent directory "/usr/local/include/arm-linux-gnueabihf"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/arm-linux-gnueabihf/14/include-fixed/arm-linux-gnueabihf"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/arm-linux-gnueabihf/14/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/usr/lib/gcc/arm-linux-gnueabihf/14/../../../../arm-linux-gnueabihf/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/include/c++/14]
+        ignore line: [ /usr/include/arm-linux-gnueabihf/c++/14]
+        ignore line: [ /usr/include/c++/14/backward]
+        ignore line: [ /usr/lib/gcc/arm-linux-gnueabihf/14/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include/arm-linux-gnueabihf]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: ce13dcefea3c7f8e56ced710524c9392]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mtls-dialect=gnu' '-mthumb' '-mlibarch=armv7-a+fp' '-march=armv7-a+fp' '-dumpdir' 'CMakeFiles/cmTC_707eb.dir/']
+        ignore line: [ as -v -march=armv7-a+fp -mfloat-abi=hard -meabi=5 -o CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccW8o6g9.s]
+        ignore line: [GNU assembler version 2.44 (arm-linux-gnueabihf) using BFD version (GNU Binutils for Debian) 2.44]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/arm-linux-gnueabihf/14/:/usr/libexec/gcc/arm-linux-gnueabihf/14/:/usr/libexec/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/14/:/usr/lib/gcc/arm-linux-gnueabihf/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/14/:/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/14/../../../:/lib/arm-linux-gnueabihf/:/lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc'  '-mfloat-abi=hard' '-mtls-dialect=gnu' '-mthumb' '-mlibarch=armv7-a+fp' '-march=armv7-a+fp' '-dumpdir' 'CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_707eb]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_707eb.dir/link.txt --verbose=1]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/usr/bin/c++]
+        ignore line: [COLLECT_LTO_WRAPPER=/usr/libexec/gcc/arm-linux-gnueabihf/14/lto-wrapper]
+        ignore line: [Target: arm-linux-gnueabihf]
+        ignore line: [Configured with: ../src/configure -v --with-pkgversion='Debian 14.2.0-19' --with-bugurl=file:///usr/share/doc/gcc-14/README.Bugs --enable-languages=c ada c++ go d fortran objc obj-c++ m2 rust --prefix=/usr --with-gcc-major-version-only --program-suffix=-14 --program-prefix=arm-linux-gnueabihf- --enable-shared --enable-linker-build-id --libexecdir=/usr/libexec --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --enable-bootstrap --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-libstdcxx-backtrace --enable-gnu-unique-object --disable-libitm --disable-libquadmath --disable-libquadmath-support --enable-plugin --enable-default-pie --with-system-zlib --enable-libphobos-checking=release --with-target-system-zlib=auto --enable-objc-gc=auto --enable-multiarch --disable-sjlj-exceptions --with-arch=armv7-a+fp --with-float=hard --with-mode=thumb --disable-werror --enable-checking=release --build=arm-linux-gnueabihf --host=arm-linux-gnueabihf --target=arm-linux-gnueabihf]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib zstd]
+        ignore line: [gcc version 14.2.0 (Debian 14.2.0-19) ]
+        ignore line: [COMPILER_PATH=/usr/libexec/gcc/arm-linux-gnueabihf/14/:/usr/libexec/gcc/arm-linux-gnueabihf/14/:/usr/libexec/gcc/arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/14/:/usr/lib/gcc/arm-linux-gnueabihf/]
+        ignore line: [LIBRARY_PATH=/usr/lib/gcc/arm-linux-gnueabihf/14/:/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/:/usr/lib/gcc/arm-linux-gnueabihf/14/../../../:/lib/arm-linux-gnueabihf/:/lib/:/usr/lib/arm-linux-gnueabihf/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_707eb' '-shared-libgcc'  '-mfloat-abi=hard' '-mtls-dialect=gnu' '-mthumb' '-mlibarch=armv7-a+fp' '-march=armv7-a+fp' '-dumpdir' 'cmTC_707eb.']
+        link line: [ /usr/libexec/gcc/arm-linux-gnueabihf/14/collect2 -plugin /usr/libexec/gcc/arm-linux-gnueabihf/14/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/arm-linux-gnueabihf/14/lto-wrapper -plugin-opt=-fresolution=/tmp/ccCjax7q.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -pie -o cmTC_707eb /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/Scrt1.o /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/14/crtbeginS.o -L/usr/lib/gcc/arm-linux-gnueabihf/14 -L/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/14/../../.. -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf -v CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/arm-linux-gnueabihf/14/crtendS.o /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crtn.o]
+          arg [/usr/libexec/gcc/arm-linux-gnueabihf/14/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/usr/libexec/gcc/arm-linux-gnueabihf/14/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/usr/libexec/gcc/arm-linux-gnueabihf/14/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccCjax7q.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib/ld-linux-armhf.so.3] ==> ignore
+          arg [-X] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-m] ==> ignore
+          arg [armelf_linux_eabi] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_707eb] ==> ignore
+          arg [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/Scrt1.o] ==> obj [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/Scrt1.o]
+          arg [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crti.o] ==> obj [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crti.o]
+          arg [/usr/lib/gcc/arm-linux-gnueabihf/14/crtbeginS.o] ==> obj [/usr/lib/gcc/arm-linux-gnueabihf/14/crtbeginS.o]
+          arg [-L/usr/lib/gcc/arm-linux-gnueabihf/14] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/14]
+          arg [-L/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf]
+          arg [-L/usr/lib/gcc/arm-linux-gnueabihf/14/../../..] ==> dir [/usr/lib/gcc/arm-linux-gnueabihf/14/../../..]
+          arg [-L/lib/arm-linux-gnueabihf] ==> dir [/lib/arm-linux-gnueabihf]
+          arg [-L/usr/lib/arm-linux-gnueabihf] ==> dir [/usr/lib/arm-linux-gnueabihf]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/usr/lib/gcc/arm-linux-gnueabihf/14/crtendS.o] ==> obj [/usr/lib/gcc/arm-linux-gnueabihf/14/crtendS.o]
+          arg [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crtn.o] ==> obj [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crtn.o]
+        ignore line: [collect2 version 14.2.0]
+        ignore line: [/usr/bin/ld -plugin /usr/libexec/gcc/arm-linux-gnueabihf/14/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/arm-linux-gnueabihf/14/lto-wrapper -plugin-opt=-fresolution=/tmp/ccCjax7q.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X --hash-style=gnu --as-needed -m armelf_linux_eabi -pie -o cmTC_707eb /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/Scrt1.o /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crti.o /usr/lib/gcc/arm-linux-gnueabihf/14/crtbeginS.o -L/usr/lib/gcc/arm-linux-gnueabihf/14 -L/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf -L/usr/lib/gcc/arm-linux-gnueabihf/14/../../.. -L/lib/arm-linux-gnueabihf -L/usr/lib/arm-linux-gnueabihf -v CMakeFiles/cmTC_707eb.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/arm-linux-gnueabihf/14/crtendS.o /usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crtn.o]
+        linker tool for 'CXX': /usr/bin/ld
+        collapse obj [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/Scrt1.o] ==> [/usr/lib/arm-linux-gnueabihf/Scrt1.o]
+        collapse obj [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crti.o] ==> [/usr/lib/arm-linux-gnueabihf/crti.o]
+        collapse obj [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf/crtn.o] ==> [/usr/lib/arm-linux-gnueabihf/crtn.o]
+        collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/14] ==> [/usr/lib/gcc/arm-linux-gnueabihf/14]
+        collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/14/../../../arm-linux-gnueabihf] ==> [/usr/lib/arm-linux-gnueabihf]
+        collapse library dir [/usr/lib/gcc/arm-linux-gnueabihf/14/../../..] ==> [/usr/lib]
+        collapse library dir [/lib/arm-linux-gnueabihf] ==> [/lib/arm-linux-gnueabihf]
+        collapse library dir [/usr/lib/arm-linux-gnueabihf] ==> [/usr/lib/arm-linux-gnueabihf]
+        implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/usr/lib/arm-linux-gnueabihf/Scrt1.o;/usr/lib/arm-linux-gnueabihf/crti.o;/usr/lib/gcc/arm-linux-gnueabihf/14/crtbeginS.o;/usr/lib/gcc/arm-linux-gnueabihf/14/crtendS.o;/usr/lib/arm-linux-gnueabihf/crtn.o]
+        implicit dirs: [/usr/lib/gcc/arm-linux-gnueabihf/14;/usr/lib/arm-linux-gnueabihf;/usr/lib;/lib/arm-linux-gnueabihf]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake-3.31/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "/usr/share/cmake-3.31/Modules/CMakeDetermineCompilerABI.cmake:255 (cmake_determine_linker_id)"
+      - "/usr/share/cmake-3.31/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "/usr/bin/ld" "-v"
+      GNU ld (GNU Binutils for Debian) 2.44
+...

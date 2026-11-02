@@ -1,52 +1,50 @@
-#pragma once
+#ifndef GPIO_CONTROLLER_HPP
+#define GPIO_CONTROLLER_HPP
 
+#include <fstream>
 #include <cstdint>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdexcept>
 
 namespace aeroswarm {
-
 class GpioController {
 public:
-    explicit GpioController(const char* dev_path = "/dev/bbb_custom_gpio") {
-        fd_ = open(dev_path, O_RDWR);
-        if (fd_ < 0) {
-            throw std::runtime_error("Failed to open GPIO device node");
+    GpioController() {
+        // Initialize GPIO 60 (P9_12) sysfs export
+        std::ofstream exp("/sys/class/gpio/export");
+        if (exp.is_open()) {
+            exp << "60";
+        }
+        std::ofstream dir("/sys/class/gpio/gpio60/direction");
+        if (dir.is_open()) {
+            dir << "out";
         }
     }
 
-    ~GpioController() {
-        if (fd_ >= 0) {
-            close(fd_);
+    ~GpioController() {}
+
+    bool write_pins(uint32_t mask, int val) {
+        // 1. Control LED3 (USR3)
+        std::ofstream led_file("/sys/class/leds/beaglebone:green:usr3/brightness");
+        if (led_file.is_open()) {
+            led_file << (val ? "1" : "0");
         }
-    }
 
-    // Delete copy constructors to prevent dangling file descriptor handles
-    GpioController(const GpioController&) = delete;
-    GpioController& operator=(const GpioController&) = delete;
-
-    // Read 32-bit GPIO_DATAIN register (zero-allocation hot-path safe)
-    inline uint32_t read_pins() const noexcept {
-        uint32_t data = 0;
-        if (pread(fd_, &data, sizeof(data), 0) < 0) {
-            return 0;
+        // 2. Control physical pin P9_12 (GPIO 60)
+        std::ofstream p9_file("/sys/class/gpio/gpio60/value");
+        if (p9_file.is_open()) {
+            p9_file << (val ? "1" : "0");
         }
-        return data;
+        return true;
     }
 
-    // Write pin states using mask and value (1 = set high, 0 = set low)
-    inline bool write_pins(uint32_t mask, uint32_t value) noexcept {
-        struct GpioCmd {
-            uint32_t mask;
-            uint32_t value;
-        } cmd{mask, value};
-
-        return write(fd_, &cmd, sizeof(cmd)) == sizeof(cmd);
+    uint32_t read_pins() {
+        std::ifstream led_file("/sys/class/leds/beaglebone:green:usr3/brightness");
+        int val = 0;
+        if (led_file.is_open()) {
+            led_file >> val;
+        }
+        return val ? 1 : 0;
     }
-
-private:
-    int fd_{-1};
 };
+}
 
-} // namespace aeroswarm
+#endif

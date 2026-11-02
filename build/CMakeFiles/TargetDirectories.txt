@@ -1,0 +1,9 @@
+/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/gateway_node.dir
+/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/iot_gateway_server.dir
+/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/test.dir
+/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/edit_cache.dir
+/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/CMakeFiles/rebuild_cache.dir
+/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/tests/CMakeFiles/unit_tests.dir
+/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/tests/CMakeFiles/test.dir
+/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/tests/CMakeFiles/edit_cache.dir
+/home/debian/aeroswarm-bbb-iot-gateway-telemetry-control/build/tests/CMakeFiles/rebuild_cache.dir
