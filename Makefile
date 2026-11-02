@@ -1,15 +1,8 @@
-CXX = g++
-CXXFLAGS = -O3 -std=c++17 -Wall -Iinclude
+all:
+	mkdir -p build && cd build && cmake .. && make
 
-TARGET = gateway_node
-SRC = src/main.cpp
-
-all: $(TARGET)
-
-$(TARGET): $(SRC) include/gpio_controller.hpp
-	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET)
+test:
+	cd build && ctest --output-on-failure
 
 clean:
-	rm -f $(TARGET)
-
-.PHONY: all clean
+	rm -rf build gateway_node

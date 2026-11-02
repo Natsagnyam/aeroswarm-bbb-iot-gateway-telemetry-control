@@ -1,13 +1,20 @@
-cmake_minimum_required(VERSION 3.16)
-project(aeroswarm_edge_gateway VERSION 1.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.10)
+project(aeroswarm_bbb_gateway CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(gateway_node
-    src/main.cpp
-)
+# Enable CTest infrastructure
+enable_testing()
 
-target_include_directories(gateway_node PRIVATE
-    include
-)
+# Include directories
+include_directories(include)
+
+# Main console gateway node target
+add_executable(gateway_node src/main.cpp)
+
+# IoT Gateway Server target (expects src/server.cpp or similar)
+add_executable(iot_gateway_server src/server.cpp)
+
+# Add the tests subdirectory
+add_subdirectory(tests)
